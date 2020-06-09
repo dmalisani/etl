@@ -11,6 +11,7 @@ logger_perf = logging.getLogger("performance")
 logger_work = logging.getLogger("work")
 
 BATCH_SIZE = os.getenv("REQUEST_BATCH_SIZE", 20)
+PARALLEL_PROCESSES = cpu_count()
 
 
 def valid_data(row_data: list) -> dict:
@@ -49,7 +50,7 @@ def digest_data(file_path: str):
     data_reader = reader(file_path)
     count = 0
     data_count = 0
-    with ProcessPoolExecutor(cpu_count()) as executor:
+    with ProcessPoolExecutor(PARALLEL_PROCESSES) as executor:
         data_available = True
         while data_available:
             batch = []
@@ -72,7 +73,7 @@ def digest_data(file_path: str):
                     repr(data_line)))
 
             # DEBUG
-            # if count == 10:
+            # if count > 2:
             #     break
 
     logger_perf.debug("Execution of {1} records took {0}".format(
