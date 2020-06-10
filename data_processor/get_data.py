@@ -25,34 +25,38 @@ def data_extractor(batch_data: list) -> list:
 
 
 def complete_and_purge(items: list) -> dict:
-    processed_item = []
+    task_items = []
 
-    with ThreadPoolExecutor() as executor:
-        for item in items:
+    with ThreadPoolExecutor(20) as list_executor:
+        task_items = [list_executor.submit(fill_item, item) for item in items]
 
-            if not _valid_item(item):
-                continue
-            root_item = item.get('body')
-            new_item = {
-                "site": root_item.get("site_id"),
-                "id": _split_id(root_item.get("id"))[1],
-                "start_time": root_item.get("start_time"),
-                "price": root_item.get("price"),
+    return [task.result() for task in task_items]
+
+
+def fill_item(item):
+    if not _valid_item(item):
+        return {}
+
+    root_item = item.get('body')
+    new_item = {
+        "site": root_item.get("site_id"),
+        "id": _split_id(root_item.get("id"))[1],
+        "start_time": root_item.get("start_time"),
+        "price": root_item.get("price"),
+    }
+    with ThreadPoolExecutor(3) as fill_item_executor:
+        t_nickname = fill_item_executor.submit(
+            get_nickname, root_item.get("seller_id"))
+        t_description = fill_item_executor.submit(
+            get_currency_description, root_item.get("currency_id"))
+        t_category = fill_item_executor.submit(
+            get_category_name, root_item.get("category_id"))
+
+        new_item.update(
+            {
+                "name": t_category.result(),
+                "description": t_description.result(),
+                "nickname": t_nickname.result()
             }
-            t_nickname = executor.submit(
-                get_nickname, root_item.get("seller_id"))
-            t_description = executor.submit(
-                get_currency_description, root_item.get("currency_id"))
-            t_category = executor.submit(
-                get_category_name, root_item.get("category_id"))
-
-            new_item.update(
-                {
-                    "name": t_category.result(),
-                    "description": t_description.result(),
-                    "nickname": t_nickname.result()
-                }
-            )
-            processed_item.append(new_item)
-
-    return processed_item
+        )
+    return new_item
