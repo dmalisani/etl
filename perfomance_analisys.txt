@@ -1,0 +1,6 @@
+1 proceso batch 5: DEBUG:performance:Execution of 54 records took 69.34
+4 procesos batch 5: DEBUG:performance:Execution of 54 records took 10.56
+4 procesos batch 20: DEBUG:performance:Execution of 59 records took 10.25
+4 procesos batch: 20: DEBUG:performance:Execution of 1997 records took 224.7
+
+after optimize phase 1: DEBUG:performance:Execution of 1997 records took 165.57
