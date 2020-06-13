@@ -2,9 +2,9 @@ import os
 import logging
 import time
 from multiprocessing import cpu_count
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from data_parser.csv_parser import reader
-from persistence.writer import write_row
+from persistence.writer import write_rows
 from data_processor.get_data import data_extractor
 
 logger_perf = logging.getLogger("performance")
@@ -34,12 +34,8 @@ def process_line(row_data):
 
 
 def store_batch(task):
-    try:
-        write_row(task.result())
-    except Exception as e:
-        logger_work.error("Error during storage of data: {0}. {1}".format(
-            task.result(),
-            e))
+    with ThreadPoolExecutor() as thread_writer:
+        thread_writer.submit(write_rows, task.result())
 
 
 def digest_data(file_path: str):
