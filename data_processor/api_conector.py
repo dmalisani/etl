@@ -17,10 +17,10 @@ def get_items(list_of_id: list) -> dict:
         return {}
     ids_str = ",".join(list_of_id)
     url = f"{BASE_URL}/items?ids={ids_str}"
-    response = requests.get(url)
-    logger_perf.debug("Process {0}".format(
-                round(time.perf_counter() - time_start, 2)))
     try:
+        response = requests.get(url)
+        logger_perf.debug("Process {0}".format(
+                round(time.perf_counter() - time_start, 2)))
         return response.json()
     except Exception as e:
         logger_work.error(f"Cannot parse response\n{e}")
@@ -29,29 +29,32 @@ def get_items(list_of_id: list) -> dict:
 
 def get_category_name(id_category: str) -> str:
     url = f"{BASE_URL}/categories/{id_category}"
-    response = requests.get(url)
     try:
+        response = requests.get(url)
         data = response.json()
-    except Exception:
+    except Exception as e:
+        logger_work.error(f"Cannot parse response\n{e}")
         return None
     return data.get("name")
 
 
 def get_currency_description(id_currency: str) -> str:
     url = f"{BASE_URL}/currencies/{id_currency}"
-    response = requests.get(url)
     try:
+        response = requests.get(url)
         data = response.json()
-    except Exception:
+    except Exception as e:
+        logger_work.error(f"Cannot parse response\n{e}")
         return None
     return data.get("description")
 
 
 def get_nickname(id_user: str) -> str:
     url = f"{BASE_URL}/users/{id_user}"
-    response = requests.get(url)
     try:
+        response = requests.get(url)
         data = response.json()
-    except Exception:
+    except Exception as e:
+        logger_work.error(f"Cannot parse response\n{e}")
         return None
     return data.get("nickname")
