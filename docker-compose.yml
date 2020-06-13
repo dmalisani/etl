@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:10
+    build:
+      context: .
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      etlnetwork:
+        ipv4_address: 172.20.0.1
+    container_name: db_etl
+
+  pgadmin:
+    image: dpage/pgadmin4
+    build:
+      context: .
+    environment:
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+
+    depends_on:
+      - db
+    networks:
+      etlnetwork:
+        ipv4_address: 172.20.0.2
+    container_name: pgadmin
+
+  etl:
+    image: sat-api:1.0
+    build:
+      dockerfile: ../Docker/Dockerfile
+    restart: always
+    environment:
+      APPLICATION_ENV: ${APPLICATION_ENV}
+      PYTHONUNBUFFERED: 1
+      POSTGRES_DB: ${SAT_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: db_etl
+      POSTGRES_PORT: 5432
+    networks:
+      nubinetwork:
+        ipv4_address: 172.20.0.3
+    depends_on:
+      - db
+    container_name: etl_1
+    entrypoint: /bin/sh
+
+networks:
+  etlnetwork:
+    driver: bridge
+    name: etlnetwork
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
