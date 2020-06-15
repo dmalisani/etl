@@ -18,3 +18,4 @@ wincertstore==0.2
 wrapt==1.11.2
 requests==2.23.0  # required
 psycopg2==2.8.5 # required
+gunicorn==20.0.4 # required

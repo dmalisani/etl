@@ -4,11 +4,11 @@ import logging
 
 logger_work = logging.getLogger("work")
 
-PG_USER = os.getenv("PG_USER", "postgres")
-PG_PASS = os.getenv("PG_USER", "password")
-PG_HOST = os.getenv("PG_HOST", "192.168.99.100")
-PG_PORT = os.getenv("PG_PORT", 5432)
-PG_DATABASE = os.getenv("PG_DATABASE", "ml_data")
+PG_USER = os.getenv("POSTGRES_USER", "postgres")
+PG_PASS = os.getenv("POSTGRES_PASSWORD", "password")
+PG_HOST = os.getenv("POSTGRES_HOST", "192.168.99.100")
+PG_PORT = os.getenv("POSTGRES_PORT", 2345)
+PG_DATABASE = os.getenv("POSTGRES_DATABASE", "ml_data")
 ITEM_TABLE = os.getenv("ITEM_TABLE", "items")
 
 
