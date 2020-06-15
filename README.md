@@ -55,3 +55,15 @@ Como probar:
  * ``docker-compose up`` pone en funcionamiento los containers.
  * con ``docker instpect etl_1`` podrá ver la IP que toma el container ( {ip_container} )
  * en el navegador ponga {ip_container}:5000 y verá el mensaje de funcionamiento con la url para lanzar la prueba
+
+Variables de entorno
+--------------------
+ - POSTGRES_USER (default: postgres)
+ - POSTGRES_PASSWORD (default: password)
+ - POSTGRES_HOST (default: 192.168.99.100)
+ - POSTGRES_PORT (default: 5432)
+ - POSTGRES_DATABASE (default: ml_data)
+ - ITEM_TABLE (default: items)
+ - MELI_API_BASE_URL (default: https://api.mercadolibre.com)
+ - REQUEST_BATCH_SIZE (default: 20)
+ 
