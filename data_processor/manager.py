@@ -71,8 +71,8 @@ def digest_data(file_path: str):
             # DEBUG
             # if count > 2:
             #     break
-
+    work_time = round(time.perf_counter() - time_start, 2)
     logger_perf.debug("Execution of {1} records took {0}".format(
-                    round(time.perf_counter() - time_start, 2),
+                    work_time,
                     data_count))
-    logger_perf.info(f"Job in {file_path} done")
+    logger_perf.info(f"Job in {file_path} done in {work_time} secs.")
