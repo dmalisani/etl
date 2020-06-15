@@ -11,19 +11,19 @@ CREATE DATABASE ml_data
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
+\c ml_data
 -- Table: public.items
-
 -- DROP TABLE public.items;
 
 CREATE TABLE public.items
 (
-    site character varying(100) COLLATE pg_catalog."default",
-    id character varying(100) COLLATE pg_catalog."default",
-    price character varying(100) COLLATE pg_catalog."default",
-    start_time character varying(100) COLLATE pg_catalog."default",
-    name character varying(100) COLLATE pg_catalog."default",
-    description character varying(100) COLLATE pg_catalog."default",
-    nickname character varying(100) COLLATE pg_catalog."default"
+    site character varying(100),
+    id character varying(100),
+    price character varying(100),
+    start_time character varying(100),
+    name character varying(100),
+    description character varying(100),
+    nickname character varying(100)
 )
 
 TABLESPACE pg_default;

@@ -15,6 +15,7 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
   
+  
   adminer:
     image: adminer
     restart: always
@@ -40,6 +41,5 @@ services:
     container_name: etl_1
     ports:
       - 5000:5000
-    # entrypoint: /bin/sh
-    # entrypoint: ["sh", "-c", "sleep 2073600"]
+
 
