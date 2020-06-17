@@ -1,0 +1,17 @@
+Procesos, hilos y corrutinas
+============================
+- Un caso en el que usarías procesos para resolver un problema y por qué.
+  Cuando se necesiten realizar operaciones de uso intensivo de CPU de manera paralela (ejemplo cálculos matemáticos)
+
+- Un caso en el que usarías threads para resolver un problema y por qué.
+  Normalmente cuando se realizan tareas de E/S que tengan tiempos de stand by de la CPU. Esos tiempos se asignarían a tareas concurrentes usando hilos
+
+- Un caso en el que usarías corrutinas para resolver un problema y por qué.
+  Por ejemplo cuando hay que realizar una tarea en etapas y esperar hasta que se completen para seguir. Con la premisa de que esas tareas demanden un tiempo previsible.
+
+Optimización de recursos del sistema operativo
+==============================================
+- Si tuvieras 1.000.000 de elementos y tuvieras que consultar para cada uno de ellos
+  información en una API HTTP. ¿Cómo lo harías? Explicar.
+  
+  * Falta información para responder. No se dice que recursos se disponen por lo tanto no se puede dar precisión. El ejemplo ETL de este repo es un ejemplo de cómo lo haría.
