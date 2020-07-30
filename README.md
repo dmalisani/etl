@@ -3,7 +3,7 @@ Flujo de trabajo mutilproccesing/multithreading ETL
 ---------
 Premisas:
 ---------
- * Optimizar el uso de recursos
+ * Optimizar el uso de recursos, consumiendo muy poca memoria
  * Fácilmente extensible
 
 Descripción:
