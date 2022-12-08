@@ -1,6 +1,6 @@
 # Only tagged required are mandatory, other is only for fix their versiones
 astroid==2.4.1
-certifi==2020.4.5.1
+certifi==2022.12.7
 click==7.1.2
 colorama==0.4.3
 Flask==1.1.2  # required
